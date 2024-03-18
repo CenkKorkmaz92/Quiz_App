@@ -7,10 +7,58 @@
     <title>Quizz App</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
- 
+<body onload="init()">
+    <!-- Nav Bar -->
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Quizz App</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card quiz-card">
+            <img src="img/pencil.jpg" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title" id="questiontext">Frage</h5>
+
+                <div class="card mb-2">
+                    <div class="card-body" id="answer_1">
+                        Antwort
+                    </div>
+                </div>
+
+                <div class="card mb-2">
+                    <div class="card-body" id="answer_2">
+                        Antwort
+                    </div>
+                </div>
+
+                <div class="card mb-2">
+                    <div class="card-body" id="answer_3">
+                        Antwort
+                    </div>
+                </div>
+
+                <div class="card mb-2">
+                    <div class="card-body"  id="answer_4">
+                        Antwort
+                    </div>
+                </div>
+
+                <div class="question-footer">
+                    <span>
+                        <b>1</b> von <b id="all-questions">5</b> Fragen
+                    </span>
+                    <button type="button" class="btn btn-warning">Nächste Frage</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
