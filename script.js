@@ -66,11 +66,7 @@ function init() {
 }
 
 function showQuestion() {
-    let mainContainer = document.getElementById("main-container");
     if (currentQuestion >= questions.length) { // >= größer gleich
-        document.getElementById('main-container').innerHTML = '';
-        mainContainer.style.backgroundImage = 'url("img/win.jpg")'; // Replace "path/to/your/image.jpg" with the actual path to your image
-        mainContainer.style.backgroundSize = 'cover';
     } else {
 
 
