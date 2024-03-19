@@ -66,7 +66,7 @@ function init() {
 }
 
 function showQuestion() {
-    let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Aray*/
+    let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
 
     document.getElementById('questiontext').innerHTML = question['question'];
     document.getElementById('answer_1').innerHTML = question['answer_1'];
@@ -77,14 +77,29 @@ function showQuestion() {
 
 function answer(selection) {
     let question = questions[currentQuestion];
-    console.log('selected answer is ', selection);
-    let selectedQuestionNumber = selection.slice(-1);
-    console.log('selectedQuestionNumber is', selectedQuestionNumber);
-    console.log('Current question is', question['right_answer']);
+    let selectedQuestionNumber = selection.slice(-1); /*In dieser Variable wird der letzte Buchstabe der vorherigen Variable "selection" gespeichert. In diesem Fall die nummer der Richtigen Frage*/
+    let idOfRightAnswer = `answer_${question['right_answer']}`; /*greift auf die ID der richtigen Antwort der aktuellen Frage zu und stellt sie in einer Variable bereit*/
 
     if (selectedQuestionNumber == question['right_answer']) {
-        console.log('Richtige Antwort!!')
+        document.getElementById(selection).parentNode.classList.add('bg-success'); /* parent.Node verändert die klasse des übergeordnetem div der selection. mit classList.add kann mit mit einem String eine CSS classe hinzufügen*/
     } else {
-        console.log('Falsche Antwort!!');
+        document.getElementById(selection).parentNode.classList.add('bg-danger'); /*gleiches spiel für die Falsche Antwort wie oben bei der richtigen Antwort*/
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success'); /*Nutzt die Variable idOfRightAnswer um die richtige Antwort grün anzuzeigen wenn eine Falsche angewählt wurde*/
     }
+    document.getElementById("next-button").disabled = false;
 }
+
+function nextQuestion() {
+    currentQuestion++; //z.B von 0 auf 1
+    document.getElementById("next-button").disabled = true; // buttonw ird disabled
+    resetAnswerButtons() //Antworten werden resettet
+    showQuestion(); // nächste Frage wird angezeigt
+}
+
+function resetAnswerButtons() {
+    document.getElementById('answer_1').parentNode.classList.remove('bg-danger', 'bg-success')
+    document.getElementById('answer_2').parentNode.classList.remove('bg-danger', 'bg-success')
+    document.getElementById('answer_3').parentNode.classList.remove('bg-danger', 'bg-success')
+    document.getElementById('answer_4').parentNode.classList.remove('bg-danger', 'bg-success')
+}
+
