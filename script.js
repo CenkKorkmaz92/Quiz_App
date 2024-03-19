@@ -66,13 +66,23 @@ function init() {
 }
 
 function showQuestion() {
-    let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
+    let mainContainer = document.getElementById("main-container");
+    if (currentQuestion >= questions.length) { // >= größer gleich
+        document.getElementById('main-container').innerHTML = '';
+        mainContainer.style.backgroundImage = 'url("img/win.jpg")'; // Replace "path/to/your/image.jpg" with the actual path to your image
+        mainContainer.style.backgroundSize = 'cover';
+    } else {
 
-    document.getElementById('questiontext').innerHTML = question['question'];
-    document.getElementById('answer_1').innerHTML = question['answer_1'];
-    document.getElementById('answer_2').innerHTML = question['answer_2'];
-    document.getElementById('answer_3').innerHTML = question['answer_3'];
-    document.getElementById('answer_4').innerHTML = question['answer_4'];
+
+        let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
+
+        document.getElementById('current-question').innerHTML = currentQuestion + 1; //erhöht den counter für die Fragen 
+        document.getElementById('questiontext').innerHTML = question['question'];
+        document.getElementById('answer_1').innerHTML = question['answer_1'];
+        document.getElementById('answer_2').innerHTML = question['answer_2'];
+        document.getElementById('answer_3').innerHTML = question['answer_3'];
+        document.getElementById('answer_4').innerHTML = question['answer_4'];
+    }
 }
 
 function answer(selection) {
@@ -94,6 +104,7 @@ function nextQuestion() {
     document.getElementById("next-button").disabled = true; // buttonw ird disabled
     resetAnswerButtons() //Antworten werden resettet
     showQuestion(); // nächste Frage wird angezeigt
+
 }
 
 function resetAnswerButtons() {
