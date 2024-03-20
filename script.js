@@ -67,8 +67,9 @@ function init() {
 
 function showQuestion() {
     if (currentQuestion >= questions.length) { // >= größer gleich
+        document.getElementById('endScreen').style = '';
+        document.getElementById('questionBody').style = 'display: none';
     } else {
-
 
         let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
 
