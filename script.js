@@ -70,9 +70,10 @@ function showQuestion() {
     if (currentQuestion >= questions.length) { // >= größer gleich
         document.getElementById('endScreen').style = '';
         document.getElementById('questionBody').style = 'display: none';
+
         document.getElementById('amountOfQuestions').innerHTML = questions.length;
         document.getElementById('amountOfRightQuestions').innerHTML = rightQuestions;
-
+        document.getElementById('header-image').src = 'img/win.jpg';
     } else {
 
         let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
