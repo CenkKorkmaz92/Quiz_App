@@ -57,6 +57,7 @@ let questions = [
     }
 ];
 
+let rightQuestions = 0;
 let currentQuestion = 0;
 
 function init() {
@@ -69,6 +70,9 @@ function showQuestion() {
     if (currentQuestion >= questions.length) { // >= größer gleich
         document.getElementById('endScreen').style = '';
         document.getElementById('questionBody').style = 'display: none';
+        document.getElementById('amountOfQuestions').innerHTML = questions.length;
+        document.getElementById('amountOfRightQuestions').innerHTML = rightQuestions;
+
     } else {
 
         let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
@@ -87,8 +91,9 @@ function answer(selection) {
     let selectedQuestionNumber = selection.slice(-1); /*In dieser Variable wird der letzte Buchstabe der vorherigen Variable "selection" gespeichert. In diesem Fall die nummer der Richtigen Frage*/
     let idOfRightAnswer = `answer_${question['right_answer']}`; /*greift auf die ID der richtigen Antwort der aktuellen Frage zu und stellt sie in einer Variable bereit*/
 
-    if (selectedQuestionNumber == question['right_answer']) {
+    if (selectedQuestionNumber == question['right_answer']) { // right answer
         document.getElementById(selection).parentNode.classList.add('bg-success'); /* parent.Node verändert die klasse des übergeordnetem div der selection. mit classList.add kann mit mit einem String eine CSS classe hinzufügen*/
+        rightQuestions++;
     } else {
         document.getElementById(selection).parentNode.classList.add('bg-danger'); /*gleiches spiel für die Falsche Antwort wie oben bei der richtigen Antwort*/
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success'); /*Nutzt die Variable idOfRightAnswer um die richtige Antwort grün anzuzeigen wenn eine Falsche angewählt wurde*/
