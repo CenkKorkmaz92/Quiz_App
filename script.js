@@ -49,7 +49,7 @@ let questions = [
     },
     {
         "question": "Wie definiert man in JacaScript eine Variable?",
-        "answer_1": "lett 100 = rate;",
+        "answer_1": "let 100 = rate;",
         "answer_2": "100 = let rate;",
         "answer_3": "rate = 100;",
         "answer_4": "let rate = 100;",
