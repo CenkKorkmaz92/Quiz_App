@@ -74,7 +74,14 @@ function showQuestion() {
         document.getElementById('amountOfQuestions').innerHTML = questions.length;
         document.getElementById('amountOfRightQuestions').innerHTML = rightQuestions;
         document.getElementById('header-image').src = 'img/win.jpg';
-    } else {
+    } else { // show question
+
+        let percent = (currentQuestion + 1) / questions.length;
+        percent = Math.round(percent * 100);
+        document.getElementById('progress-bar').innerHTML = `${percent} %`;
+        document.getElementById('progress-bar').style = `width: ${percent}%`;
+
+        console.log('Fortschritt:', percent);
 
         let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
 
@@ -115,5 +122,14 @@ function resetAnswerButtons() {
     document.getElementById('answer_2').parentNode.classList.remove('bg-danger', 'bg-success')
     document.getElementById('answer_3').parentNode.classList.remove('bg-danger', 'bg-success')
     document.getElementById('answer_4').parentNode.classList.remove('bg-danger', 'bg-success')
+}
+
+function restartGame() {
+    document.getElementById('header-image').src = 'img/pencil.jpg';
+    document.getElementById('questionBody').style = ''; // question body wider anzeigen
+    document.getElementById('endScreen').style = 'display: none'; // endscreen ausblenden
+    rightQuestions = 0;
+    currentQuestion = 0;
+    init();
 }
 
