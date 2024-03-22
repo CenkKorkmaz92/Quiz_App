@@ -59,41 +59,46 @@ let questions = [
 
 let rightQuestions = 0;
 let currentQuestion = 0;
+let AUDIO_SUCCESS = new Audio('audio/success.mp3');
+let AUDIO_FAIL = new Audio('audio/fail.mp3');
 
 function init() {
     document.getElementById('all-questions').innerHTML = questions.length;
 
-    showQuestion()
+    showQuestion();
 }
 
 function showQuestion() {
-    if (currentQuestion >= questions.length) { // >= größer gleich
-        document.getElementById('endScreen').style = '';
-        document.getElementById('questionBody').style = 'display: none';
-
-        document.getElementById('amountOfQuestions').innerHTML = questions.length;
-        document.getElementById('amountOfRightQuestions').innerHTML = rightQuestions;
-        document.getElementById('header-image').src = 'img/win.jpg';
-    } else { // show question
-
-        let percent = (currentQuestion + 1) / questions.length;
-        percent = Math.round(percent * 100);
-        document.getElementById('progress-bar').innerHTML = `${percent} %`;
-        document.getElementById('progress-bar').style = `width: ${percent}%`;
-
-        console.log('Fortschritt:', percent);
-
-        let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
-
-        document.getElementById('current-question').innerHTML = currentQuestion + 1; //erhöht den counter für die Fragen 
-        document.getElementById('questiontext').innerHTML = question['question'];
-        document.getElementById('answer_1').innerHTML = question['answer_1'];
-        document.getElementById('answer_2').innerHTML = question['answer_2'];
-        document.getElementById('answer_3').innerHTML = question['answer_3'];
-        document.getElementById('answer_4').innerHTML = question['answer_4'];
+    if (gameIsOver()) { 
+        showEndScreen();
+    } else {
+        updateProgressBar();
+        updateToNextQuestion();
     }
 }
 
+function gameIsOver() {
+    return currentQuestion >= questions.length; // >= größer gleich
+}
+
+function updateToNextQuestion() {
+    updateProgressBar();
+    let question = questions[currentQuestion]; /* Wir machen einen Container und holen uns das erste Element aus dem Array*/
+
+    document.getElementById('current-question').innerHTML = currentQuestion + 1; //erhöht den counter für die Fragen 
+    document.getElementById('questiontext').innerHTML = question['question'];
+    document.getElementById('answer_1').innerHTML = question['answer_1'];
+    document.getElementById('answer_2').innerHTML = question['answer_2'];
+    document.getElementById('answer_3').innerHTML = question['answer_3'];
+    document.getElementById('answer_4').innerHTML = question['answer_4'];
+}
+
+function updateProgressBar() {
+    let percent = (currentQuestion + 1) / questions.length;
+    percent = Math.round(percent * 100);
+    document.getElementById('progress-bar').innerHTML = `${percent} %`;
+    document.getElementById('progress-bar').style = `width: ${percent}%`;
+}
 function answer(selection) {
     let question = questions[currentQuestion];
     let selectedQuestionNumber = selection.slice(-1); /*In dieser Variable wird der letzte Buchstabe der vorherigen Variable "selection" gespeichert. In diesem Fall die nummer der Richtigen Frage*/
@@ -101,10 +106,12 @@ function answer(selection) {
 
     if (selectedQuestionNumber == question['right_answer']) { // right answer
         document.getElementById(selection).parentNode.classList.add('bg-success'); /* parent.Node verändert die klasse des übergeordnetem div der selection. mit classList.add kann mit mit einem String eine CSS classe hinzufügen*/
+        AUDIO_SUCCESS.play();
         rightQuestions++;
     } else {
         document.getElementById(selection).parentNode.classList.add('bg-danger'); /*gleiches spiel für die Falsche Antwort wie oben bei der richtigen Antwort*/
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success'); /*Nutzt die Variable idOfRightAnswer um die richtige Antwort grün anzuzeigen wenn eine Falsche angewählt wurde*/
+        AUDIO_FAIL.play();
     }
     document.getElementById("next-button").disabled = false;
 }
@@ -132,4 +139,14 @@ function restartGame() {
     currentQuestion = 0;
     init();
 }
+
+function showEndScreen() {
+    document.getElementById('endScreen').style = '';
+    document.getElementById('questionBody').style = 'display: none';
+    document.getElementById('amountOfQuestions').innerHTML = questions.length;
+    document.getElementById('amountOfRightQuestions').innerHTML = rightQuestions;
+    document.getElementById('header-image').src = 'img/win.jpg';
+}
+
+
 
